@@ -20,7 +20,8 @@ module.exports = {
     // Add equipped weapon info
     if (player.equippedWeapon) {
       const equippedWeapon = await Weapon.findById(player.equippedWeapon);
-      inventoryList += `\n⚔️ **Equipped:** ${equippedWeapon.name} (${equippedWeapon.minDamage}-${equippedWeapon.maxDamage} damage, ${equippedWeapon.criticalChance * 100}% crit chance)\n`;
+      inventoryList += `\n⚔️ **Equipped:** ${equippedWeapon.name} (${equippedWeapon.weaponClass}, ${equippedWeapon.minDamage}-${equippedWeapon.maxDamage} damage, ${(equippedWeapon.criticalChance * 100).toFixed(2)}% crit chance, ${(equippedWeapon.accuracy * 100).toFixed(2)}% accuracy)\n`;
+      inventoryList += `*${equippedWeapon.description}*\n`;
     }
 
     // Add inventory items
@@ -28,7 +29,7 @@ module.exports = {
     for (const item of player.inventory) {
       const weapon = await Weapon.findById(item.weapon);
       if (weapon) {
-        inventoryList += `- ${weapon.name} (${weapon.minDamage}-${weapon.maxDamage} damage, ${weapon.criticalChance * 100}% crit chance)\n`;
+        inventoryList += `- ${weapon.name} (${weapon.weaponClass}, ${weapon.minDamage}-${weapon.maxDamage} damage, ${(weapon.criticalChance * 100).toFixed(2)}% crit chance, ${(weapon.accuracy * 100).toFixed(2)}% accuracy)\n`;
       }
     }
 

@@ -35,6 +35,10 @@ module.exports = {
       `XP: ${generateXpBar(player.xp, player.nextLevelXp)} ${player.xp}/${player.nextLevelXp}\n` +
       `HP: ${generateHealthBar(player.hp)} ${player.hp}/100\n` +
       `Wins: ${player.defeats}\n` +
+      `\n⚔️ **Attack Skills**\n` +
+      `Melee: Level ${player.meleeSkill} (${generateXpBar(player.meleeXp, player.nextMeleeLevelXp)} ${player.meleeXp}/${player.nextMeleeLevelXp})\n` +
+      `Ranged: Level ${player.rangedSkill} (${generateXpBar(player.rangedXp, player.nextRangedLevelXp)} ${player.rangedXp}/${player.nextRangedLevelXp})\n` +
+      `Magic: Level ${player.magicSkill} (${generateXpBar(player.magicXp, player.nextMagicLevelXp)} ${player.magicXp}/${player.nextMagicLevelXp})\n` +
       `\n🛡️ **Defense**\n` +
       `Skill Level: ${player.defenseSkill}\n` +
       `Defense XP: ${generateXpBar(player.defenseXp, player.nextDefenseLevelXp)} ${player.defenseXp}/${player.nextDefenseLevelXp}\n` +

@@ -10,7 +10,9 @@ const initialWeapons = [
     minDamage: 3,
     maxDamage: 7,
     criticalChance: 0.1,
-    rarity: "common"
+    accuracy: 1.0,
+    rarity: "common",
+    weaponClass: "melee"
   },
   {
     name: "Rusty Dagger",
@@ -18,7 +20,9 @@ const initialWeapons = [
     minDamage: 2,
     maxDamage: 6,
     criticalChance: 0.15,
-    rarity: "common"
+    accuracy: 1.0,
+    rarity: "common",
+    weaponClass: "melee"
   },
   {
     name: "Stone Hammer",
@@ -26,7 +30,29 @@ const initialWeapons = [
     minDamage: 4,
     maxDamage: 8,
     criticalChance: 0.05,
-    rarity: "common"
+    accuracy: 1.0,
+    rarity: "common",
+    weaponClass: "melee"
+  },
+  {
+    name: "Wooden Bow",
+    description: "A simple bow made of wood",
+    minDamage: 3,
+    maxDamage: 8,
+    criticalChance: 0.12,
+    accuracy: 0.7,
+    rarity: "common",
+    weaponClass: "ranged"
+  },
+  {
+    name: "Training Staff",
+    description: "A basic staff used for magic practice",
+    minDamage: 2,
+    maxDamage: 6,
+    criticalChance: 0.08,
+    accuracy: 0.8,
+    rarity: "common",
+    weaponClass: "magic"
   },
 
   // Uncommon weapons
@@ -36,7 +62,9 @@ const initialWeapons = [
     minDamage: 5,
     maxDamage: 10,
     criticalChance: 0.12,
-    rarity: "uncommon"
+    accuracy: 1.0,
+    rarity: "uncommon",
+    weaponClass: "melee"
   },
   {
     name: "Steel Dagger",
@@ -44,7 +72,9 @@ const initialWeapons = [
     minDamage: 4,
     maxDamage: 9,
     criticalChance: 0.18,
-    rarity: "uncommon"
+    accuracy: 1.0,
+    rarity: "uncommon",
+    weaponClass: "melee"
   },
   {
     name: "Iron Mace",
@@ -52,7 +82,29 @@ const initialWeapons = [
     minDamage: 6,
     maxDamage: 12,
     criticalChance: 0.08,
-    rarity: "uncommon"
+    accuracy: 1.0,
+    rarity: "uncommon",
+    weaponClass: "melee"
+  },
+  {
+    name: "Hunting Bow",
+    description: "A sturdy bow used for hunting",
+    minDamage: 5,
+    maxDamage: 11,
+    criticalChance: 0.15,
+    accuracy: 0.75,
+    rarity: "uncommon",
+    weaponClass: "ranged"
+  },
+  {
+    name: "Apprentice Wand",
+    description: "A wand used by magic apprentices",
+    minDamage: 4,
+    maxDamage: 9,
+    criticalChance: 0.1,
+    accuracy: 0.85,
+    rarity: "uncommon",
+    weaponClass: "magic"
   },
 
   // Rare weapons
@@ -62,7 +114,9 @@ const initialWeapons = [
     minDamage: 7,
     maxDamage: 14,
     criticalChance: 0.15,
-    rarity: "rare"
+    accuracy: 1.0,
+    rarity: "rare",
+    weaponClass: "melee"
   },
   {
     name: "Crystal Dagger",
@@ -70,7 +124,9 @@ const initialWeapons = [
     minDamage: 6,
     maxDamage: 13,
     criticalChance: 0.2,
-    rarity: "rare"
+    accuracy: 1.0,
+    rarity: "rare",
+    weaponClass: "melee"
   },
   {
     name: "Dragonbone Hammer",
@@ -78,7 +134,29 @@ const initialWeapons = [
     minDamage: 8,
     maxDamage: 16,
     criticalChance: 0.1,
-    rarity: "rare"
+    accuracy: 1.0,
+    rarity: "rare",
+    weaponClass: "melee"
+  },
+  {
+    name: "Elven Longbow",
+    description: "An elegant bow crafted by elven hands",
+    minDamage: 8,
+    maxDamage: 15,
+    criticalChance: 0.18,
+    accuracy: 0.8,
+    rarity: "rare",
+    weaponClass: "ranged"
+  },
+  {
+    name: "Arcane Staff",
+    description: "A staff imbued with arcane energy",
+    minDamage: 7,
+    maxDamage: 14,
+    criticalChance: 0.15,
+    accuracy: 0.9,
+    rarity: "rare",
+    weaponClass: "magic"
   },
 
   // Epic weapons
@@ -88,7 +166,9 @@ const initialWeapons = [
     minDamage: 10,
     maxDamage: 18,
     criticalChance: 0.18,
-    rarity: "epic"
+    accuracy: 1.0,
+    rarity: "epic",
+    weaponClass: "melee"
   },
   {
     name: "Shadow Dagger",
@@ -96,7 +176,9 @@ const initialWeapons = [
     minDamage: 9,
     maxDamage: 17,
     criticalChance: 0.25,
-    rarity: "epic"
+    accuracy: 1.0,
+    rarity: "epic",
+    weaponClass: "melee"
   },
   {
     name: "Thunder Hammer",
@@ -104,7 +186,29 @@ const initialWeapons = [
     minDamage: 12,
     maxDamage: 20,
     criticalChance: 0.15,
-    rarity: "epic"
+    accuracy: 1.0,
+    rarity: "epic",
+    weaponClass: "melee"
+  },
+  {
+    name: "Storm Bow",
+    description: "A bow that channels the power of storms",
+    minDamage: 11,
+    maxDamage: 19,
+    criticalChance: 0.2,
+    accuracy: 0.85,
+    rarity: "epic",
+    weaponClass: "ranged"
+  },
+  {
+    name: "Celestial Staff",
+    description: "A staff that draws power from the stars",
+    minDamage: 10,
+    maxDamage: 18,
+    criticalChance: 0.22,
+    accuracy: 0.95,
+    rarity: "epic",
+    weaponClass: "magic"
   },
 
   // Legendary weapons
@@ -114,7 +218,9 @@ const initialWeapons = [
     minDamage: 15,
     maxDamage: 25,
     criticalChance: 0.2,
-    rarity: "legendary"
+    accuracy: 1.0,
+    rarity: "legendary",
+    weaponClass: "melee"
   },
   {
     name: "Soul Reaper",
@@ -122,7 +228,9 @@ const initialWeapons = [
     minDamage: 14,
     maxDamage: 24,
     criticalChance: 0.3,
-    rarity: "legendary"
+    accuracy: 1.0,
+    rarity: "legendary",
+    weaponClass: "melee"
   },
   {
     name: "Mjolnir",
@@ -130,7 +238,29 @@ const initialWeapons = [
     minDamage: 18,
     maxDamage: 28,
     criticalChance: 0.25,
-    rarity: "legendary"
+    accuracy: 1.0,
+    rarity: "legendary",
+    weaponClass: "melee"
+  },
+  {
+    name: "Apollo's Bow",
+    description: "The legendary bow of the sun god",
+    minDamage: 16,
+    maxDamage: 26,
+    criticalChance: 0.28,
+    accuracy: 0.9,
+    rarity: "legendary",
+    weaponClass: "ranged"
+  },
+  {
+    name: "Staff of the Archmage",
+    description: "A staff that contains the power of ancient archmages",
+    minDamage: 15,
+    maxDamage: 25,
+    criticalChance: 0.25,
+    accuracy: 1.0,
+    rarity: "legendary",
+    weaponClass: "magic"
   }
 ];
 

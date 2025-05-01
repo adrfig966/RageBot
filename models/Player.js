@@ -18,7 +18,17 @@ const playerSchema = new mongoose.Schema({
   defenseActive: { type: Boolean, default: false },
   defenseSkill: { type: Number, default: 1 },
   defenseXp: { type: Number, default: 0 },
-  nextDefenseLevelXp: { type: Number, default: 100 }
+  nextDefenseLevelXp: { type: Number, default: 100 },
+  // Attack-related fields
+  meleeSkill: { type: Number, default: 1 },
+  meleeXp: { type: Number, default: 0 },
+  nextMeleeLevelXp: { type: Number, default: 100 },
+  rangedSkill: { type: Number, default: 1 },
+  rangedXp: { type: Number, default: 0 },
+  nextRangedLevelXp: { type: Number, default: 100 },
+  magicSkill: { type: Number, default: 1 },
+  magicXp: { type: Number, default: 0 },
+  nextMagicLevelXp: { type: Number, default: 100 }
 });
 
 module.exports = mongoose.model('Player', playerSchema);

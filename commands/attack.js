@@ -3,6 +3,7 @@ const { SlashCommandBuilder } = require('discord.js');
 const { getOrCreatePlayer } = require('../utils/getOrCreatePlayer');
 const { checkLevelUp } = require('../utils/levelSystem');
 const { checkDefenseLevelUp } = require('../utils/defenseSystem');
+const { checkAttackLevelUp, calculateDamageMultiplier } = require('../utils/attackSystem');
 const Weapon = require('../models/Weapon');
 
 module.exports = {
@@ -40,17 +41,46 @@ module.exports = {
         minDamage: 1,
         maxDamage: 5,
         criticalChance: 0.05, // 5% crit chance for unarmed
-        criticalMultiplier: 1.5 // 1.5x damage on crit for unarmed
+        criticalMultiplier: 1.5, // 1.5x damage on crit for unarmed
+        accuracy: 1.0, // 100% accuracy for unarmed
+        weaponClass: 'melee'
       };
       isUnarmed = true;
     }
 
+    // Check for accuracy
+    const accuracyRoll = Math.random();
+    if (accuracyRoll > weapon.accuracy) {
+      return interaction.reply(`${interaction.user} missed their attack with ${weapon.name}!`);
+    }
+
+    // Get the appropriate skill level and calculate damage multiplier
+    let skillLevel;
+    switch (weapon.weaponClass) {
+      case 'melee':
+        skillLevel = attacker.meleeSkill;
+        break;
+      case 'ranged':
+        skillLevel = attacker.rangedSkill;
+        break;
+      case 'magic':
+        skillLevel = attacker.magicSkill;
+        break;
+      default:
+        skillLevel = 1;
+    }
+
+    const damageMultiplier = calculateDamageMultiplier(skillLevel);
+
     // Calculate base damage
     const baseDamage = Math.floor(Math.random() * (weapon.maxDamage - weapon.minDamage + 1)) + weapon.minDamage;
     
+    // Apply skill-based damage multiplier
+    const modifiedDamage = Math.floor(baseDamage * damageMultiplier);
+    
     // Check for critical hit
     const isCritical = Math.random() < weapon.criticalChance;
-    const damage = isCritical ? Math.floor(baseDamage * weapon.criticalMultiplier) : baseDamage;
+    const damage = isCritical ? Math.floor(modifiedDamage * weapon.criticalMultiplier) : modifiedDamage;
 
     let result = `${interaction.user} ${isUnarmed ? 'punched' : 'attacked'} ${targetUser} ${isUnarmed ? 'with their fists' : `with ${weapon.name}`}`;
 
@@ -82,6 +112,30 @@ module.exports = {
       // No defense active
       target.hp -= damage;
       result += ` for ${damage} damage${isCritical ? ' (CRITICAL HIT!)' : ''}.`;
+    }
+
+    // Add attack XP and check for level up
+    if (!isUnarmed) {
+      switch (weapon.weaponClass) {
+        case 'melee':
+          attacker.meleeXp += 10;
+          if (checkAttackLevelUp(attacker, 'melee')) {
+            result += `\n⚔️ Your melee skill increased to level ${attacker.meleeSkill}!`;
+          }
+          break;
+        case 'ranged':
+          attacker.rangedXp += 10;
+          if (checkAttackLevelUp(attacker, 'ranged')) {
+            result += `\n🏹 Your ranged skill increased to level ${attacker.rangedSkill}!`;
+          }
+          break;
+        case 'magic':
+          attacker.magicXp += 10;
+          if (checkAttackLevelUp(attacker, 'magic')) {
+            result += `\n✨ Your magic skill increased to level ${attacker.magicSkill}!`;
+          }
+          break;
+      }
     }
 
     if (target.hp <= 0) {

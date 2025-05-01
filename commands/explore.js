@@ -54,6 +54,7 @@ module.exports = {
     interaction.reply(
       `🎉 You found a ${foundRarity} weapon!\n` +
       `**${foundWeapon.name}**\n` +
+      `Class: ${foundWeapon.weaponClass}\n` +
       `Damage: ${foundWeapon.minDamage}-${foundWeapon.maxDamage}\n` +
       `Critical Chance: ${(foundWeapon.criticalChance * 100).toFixed(1)}%\n` +
       `Description: ${foundWeapon.description}`

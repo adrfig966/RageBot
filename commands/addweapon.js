@@ -41,6 +41,21 @@ module.exports = {
           { name: 'Epic', value: 'epic' },
           { name: 'Legendary', value: 'legendary' }
         )
+    )
+    .addStringOption(option =>
+      option.setName('weapon_class')
+        .setDescription('The class of the weapon')
+        .setRequired(true)
+        .addChoices(
+          { name: 'Melee', value: 'melee' },
+          { name: 'Ranged', value: 'ranged' },
+          { name: 'Magic', value: 'magic' }
+        )
+    )
+    .addNumberOption(option =>
+      option.setName('accuracy')
+        .setDescription('Accuracy (0-1)')
+        .setRequired(true)
     ),
   async execute(interaction) {
     // Check if user is admin (you can modify this check based on your needs)
@@ -54,7 +69,9 @@ module.exports = {
       minDamage: interaction.options.getInteger('min_damage'),
       maxDamage: interaction.options.getInteger('max_damage'),
       criticalChance: interaction.options.getNumber('critical_chance'),
-      rarity: interaction.options.getString('rarity')
+      rarity: interaction.options.getString('rarity'),
+      weaponClass: interaction.options.getString('weapon_class'),
+      accuracy: interaction.options.getNumber('accuracy')
     });
 
     interaction.reply(`Added new weapon: ${weapon.name}`);
