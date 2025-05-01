@@ -13,7 +13,12 @@ const playerSchema = new mongoose.Schema({
   inventory: [{
     weapon: { type: mongoose.Schema.Types.ObjectId, ref: 'Weapon' },
     obtainedAt: { type: Date, default: Date.now }
-  }]
+  }],
+  // Defense-related fields
+  defenseActive: { type: Boolean, default: false },
+  defenseSkill: { type: Number, default: 1 },
+  defenseXp: { type: Number, default: 0 },
+  nextDefenseLevelXp: { type: Number, default: 100 }
 });
 
 module.exports = mongoose.model('Player', playerSchema);

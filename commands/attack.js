@@ -2,6 +2,7 @@
 const { SlashCommandBuilder } = require('discord.js');
 const { getOrCreatePlayer } = require('../utils/getOrCreatePlayer');
 const { checkLevelUp } = require('../utils/levelSystem');
+const { checkDefenseLevelUp } = require('../utils/defenseSystem');
 const Weapon = require('../models/Weapon');
 
 module.exports = {
@@ -50,10 +51,38 @@ module.exports = {
     // Check for critical hit
     const isCritical = Math.random() < weapon.criticalChance;
     const damage = isCritical ? Math.floor(baseDamage * weapon.criticalMultiplier) : baseDamage;
-    
-    target.hp -= damage;
 
-    let result = `${interaction.user} ${isUnarmed ? 'punched' : 'attacked'} ${targetUser} ${isUnarmed ? 'with their fists' : `with ${weapon.name}`} for ${damage} damage${isCritical ? ' (CRITICAL HIT!)' : ''}.`;
+    let result = `${interaction.user} ${isUnarmed ? 'punched' : 'attacked'} ${targetUser} ${isUnarmed ? 'with their fists' : `with ${weapon.name}`}`;
+
+    // Check for defense
+    if (target.defenseActive) {
+      // Calculate block chance based on defense skill level (base 5% + 5% per level)
+      const blockChance = 0.05 + (target.defenseSkill * 0.05);
+      const isBlocked = Math.random() < blockChance;
+
+      if (isBlocked) {
+        // Successful block
+        target.defenseXp += 10;
+        target.defenseActive = false; // Defense stance is consumed after successful block
+
+        // Check for defense skill level up
+        if (checkDefenseLevelUp(target)) {
+          result += `\n🛡️ ${targetUser}'s defense skill increased to level ${target.defenseSkill}!`;
+        }
+
+        result += `\n🛡️ ${targetUser} successfully blocked the attack!`;
+      } else {
+        // Failed block
+        target.hp -= damage;
+        target.defenseActive = false; // Defense stance is consumed even on failed block
+        result += ` for ${damage} damage${isCritical ? ' (CRITICAL HIT!)' : ''}.`;
+        result += `\n🛡️ ${targetUser} failed to block the attack!`;
+      }
+    } else {
+      // No defense active
+      target.hp -= damage;
+      result += ` for ${damage} damage${isCritical ? ' (CRITICAL HIT!)' : ''}.`;
+    }
 
     if (target.hp <= 0) {
       target.hp = 100;

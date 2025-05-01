@@ -11,7 +11,11 @@ async function getOrCreatePlayer(discordUser) {
       xp: 0,
       nextLevelXp: 100,
       hp: 100,
-      defeats: 0
+      defeats: 0,
+      defenseActive: false,
+      defenseSkill: 1,
+      defenseXp: 0,
+      nextDefenseLevelXp: 100
     });
   }
 
